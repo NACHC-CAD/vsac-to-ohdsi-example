@@ -5,6 +5,7 @@ import java.sql.Connection;
 
 import org.nachc.cad.tools.vsactoohdsiexample.util.connection.VsactToOhdsiExampleConnectionFactory;
 import org.nachc.cad.tools.vsactoohdsiexample.util.vsactoohdsi.VsacToOhdsiExample;
+import org.yaorma.database.Database;
 
 import com.nach.core.util.file.FileUtil;
 
@@ -16,14 +17,21 @@ public class VsacToOhdsiExampleMain {
 	private static final String TEST_FILE_NAME = "./test/zip/RetrieveMultipleValueSets_2.16.840.1.113762.1.4.1235.350.txt.zip";
 
 	public static void main(String[] args) {
-		log.info("Getting connection...");
-		Connection conn = VsactToOhdsiExampleConnectionFactory.getConnection();
-		log.info("Testing connection...");
-		VsactToOhdsiExampleConnectionFactory.testConnection(conn);
-		log.info("Getting file...");
-		File file = getFile(args);
-		log.info("Generating OHDSI ids for VSAC concepts...");
-		VsacToOhdsiExample.getConceptIdList(file, conn);
+		Connection conn = null;
+		try {
+			log.info("Getting connection...");
+			conn = VsactToOhdsiExampleConnectionFactory.getConnection();
+			log.info("Testing connection...");
+			VsactToOhdsiExampleConnectionFactory.testConnection(conn);
+			log.info("Getting file...");
+			File file = getFile(args);
+			log.info("Generating OHDSI ids for VSAC concepts...");
+			VsacToOhdsiExample.getConceptIdList(file, conn);
+		} finally {
+			log.info("Closing connection...");
+			Database.close(conn);
+			log.info("Connection closed.");
+		}
 		log.info("Done.");
 	}
 
