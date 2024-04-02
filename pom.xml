@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<properties>
-		<version>1.0.002</version>
+		<version>1.0.023</version>
 	</properties>
 
 	<groupId>org.nachc.cad.tools</groupId>
@@ -26,6 +26,28 @@
 
 	<!-- 
 	*
+	* repositories
+	*
+	-->
+
+	<repositories>
+	
+		<repository>
+		  <id>ohdsi.snapshots</id>
+		  <name>repo.ohdsi.org-snapshots</name>
+		  <url>https://repo.ohdsi.org/nexus/content/repositories/snapshots</url>
+		  <releases>
+		      <enabled>false</enabled>
+		  </releases>
+		  <snapshots>
+		      <enabled>true</enabled>
+		  </snapshots>
+		</repository>	
+
+	</repositories>
+
+	<!-- 
+	*
 	* dependencies
 	*
 	-->
@@ -36,14 +58,26 @@
 		<dependency>
 				<groupId>org.nachc.cad.tools</groupId>
 				<artifactId>vsactoohdsi</artifactId>
-				<version>1.1.001</version>
+				<version>1.1.023</version>
 		</dependency>
 
 		<!-- CORE NACHC FRAMEWORK STUFF -->
 		<dependency>
 			<groupId>org.nachc.cad.tools</groupId>
 			<artifactId>core</artifactId>
-			<version>1.1.021</version>
+			<version>1.1.023</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.nachc.cad.tools</groupId>
+			<artifactId>yaorma</artifactId>
+			<version>1.1.023</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.ohdsi.sql</groupId>
+			<artifactId>SqlRender</artifactId>
+			<version>1.9.2-SNAPSHOT</version>
 		</dependency>
 
 		<!-- 
@@ -145,7 +179,8 @@
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>3.8.0</version>
 					<configuration>
-						<release>11</release>
+						<source>1.8</source>
+						<target>1.8</target>
 					</configuration>
 				</plugin>
 			</plugins>
@@ -212,7 +247,7 @@
 							<mainClass>org.nachc.cad.tools.vsactoohdsiexample.main.VsacToOhdsiExampleMain</mainClass>
 						</manifest>
 						<manifestEntries>
-							<Class-Path>. ./lib/SparkJDBC42.jar</Class-Path>
+							<Class-Path>. ./lib/SparkJDBC42.jar ./lib/SqlRender-1.9.2-SNAPSHOT.jar</Class-Path>
 						</manifestEntries>
 					</archive>
 					<finalName>vsac-to-ohdsi/vsac-to-ohdsi</finalName>
