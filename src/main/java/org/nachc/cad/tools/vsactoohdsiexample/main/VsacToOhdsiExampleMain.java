@@ -4,6 +4,7 @@ import java.io.File;
 import java.sql.Connection;
 
 import org.nachc.cad.tools.vsactoohdsiexample.util.connection.VsactToOhdsiExampleConnectionFactory;
+import org.nachc.cad.tools.vsactoohdsiexample.util.vsactoohdsi.VsacToOhdsiExample;
 
 import com.nach.core.util.file.FileUtil;
 
@@ -20,8 +21,9 @@ public class VsacToOhdsiExampleMain {
 		log.info("Testing connection...");
 		VsactToOhdsiExampleConnectionFactory.testConnection(conn);
 		log.info("Getting file...");
-		getFile(args);
+		File file = getFile(args);
 		log.info("Generating OHDSI ids for VSAC concepts...");
+		VsacToOhdsiExample.getConceptIdList(file, conn);
 		log.info("Done.");
 	}
 
