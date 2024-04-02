@@ -153,6 +153,48 @@
 
 		<plugins>
 
+			<!-- include dependencies in the jar files -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/vsac-to-ohdsi/lib</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>false</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- copy the databricks driver jar -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.8</version>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<echo>! ! ! Copying files ! ! !</echo>
+								<copy file="${basedir}/lib/SimbaSparkJDBC42-2.6.16.1020/SparkJDBC42.jar" tofile="${basedir}/target/vsac-to-ohdsi/lib/SparkJDBC42.jar" />
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 			<!-- create the jar file -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -162,13 +204,13 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>org.nachc.tools.fhirtoomop.main.FhirToOmopMain</mainClass>
+							<mainClass>org.nachc.cad.tools.vsactoohdsiexample.main.VsacToOhdsiExampleMain</mainClass>
 						</manifest>
 						<manifestEntries>
-							<Class-Path>.</Class-Path>
+							<Class-Path>. ./lib/SparkJDBC42.jar</Class-Path>
 						</manifestEntries>
 					</archive>
-					<finalName>fhir-to-omop/fhir-to-omop</finalName>
+					<finalName>vsac-to-ohdsi/vsac-to-ohdsi</finalName>
 				</configuration>
 			</plugin>
 
