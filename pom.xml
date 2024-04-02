@@ -174,7 +174,7 @@
 				</executions>
 			</plugin>
 
-			<!-- copy the databricks driver jar -->
+			<!-- copy files -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-antrun-plugin</artifactId>
@@ -188,7 +188,12 @@
 						<configuration>
 							<tasks>
 								<echo>! ! ! Copying files ! ! !</echo>
-								<copy file="${basedir}/lib/SimbaSparkJDBC42-2.6.16.1020/SparkJDBC42.jar" tofile="${basedir}/target/vsac-to-ohdsi/lib/SparkJDBC42.jar" />
+								<copy 
+									file="${basedir}/lib/SimbaSparkJDBC42-2.6.16.1020/SparkJDBC42.jar" 
+									tofile="${basedir}/target/vsac-to-ohdsi/lib/SparkJDBC42.jar" />
+								<copy 
+									file="${basedir}/src/main/resources/test/zip/RetrieveMultipleValueSets_2.16.840.1.113762.1.4.1235.350.txt.zip" 
+									tofile="${basedir}/target/vsac-to-ohdsi/test/zip/RetrieveMultipleValueSets_2.16.840.1.113762.1.4.1235.350.txt.zip" />
 							</tasks>
 						</configuration>
 					</execution>
