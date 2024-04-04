@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<properties>
-		<version>1.0.023</version>
+		<version>1.0.025</version>
 	</properties>
 
 	<groupId>org.nachc.cad.tools</groupId>
@@ -58,7 +58,7 @@
 		<dependency>
 				<groupId>org.nachc.cad.tools</groupId>
 				<artifactId>vsactoohdsi</artifactId>
-				<version>1.1.023</version>
+				<version>1.1.025</version>
 		</dependency>
 
 		<!-- CORE NACHC FRAMEWORK STUFF -->
@@ -233,6 +233,34 @@
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+
+			<!-- copy the auth directory -->
+			<plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-resources-plugin</artifactId>
+			    <version>3.2.0</version> <!-- You can adjust the version to match your project requirements -->
+			    <executions>
+			        <execution>
+			            <id>copy-auth-folder</id>
+			            <phase>process-resources</phase> <!-- You can adjust the phase based on when you need the folder to be copied -->
+			            <goals>
+			                <goal>copy-resources</goal>
+			            </goals>
+			            <configuration>
+			                <outputDirectory>${basedir}/target/vsac-to-ohdsi/auth</outputDirectory>
+			                <resources>
+			                    <resource>
+			                        <directory>${basedir}/_ETC/auth</directory>
+			                        <filtering>true</filtering>
+			                        <includes>
+			                            <include>**/*</include> <!-- This includes all files and subdirectories -->
+			                        </includes>
+			                    </resource>
+			                </resources>
+			            </configuration>
+			        </execution>
+			    </executions>
 			</plugin>
 
 			<!-- create the jar file -->
